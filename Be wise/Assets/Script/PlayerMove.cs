@@ -22,9 +22,7 @@ public class PlayerMove : MonoBehaviour {
 			animator.SetBool ("move", true);
 			transform.Rotate (0, x, 0);
 			transform.Translate (0, 0, z);
-			Debug.Log ("moving");
 		} else
 			animator.SetBool ("move", false);
-			Debug.Log ("stop");
 	}
 }
