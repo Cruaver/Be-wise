@@ -11,10 +11,12 @@ public class Speaking : MonoBehaviour {
 
 	void OnTriggerStay (Collider collider) {
 		if (collider.tag == "panel") {
-			if (Input.GetKey (KeyCode.Space) && AnsweringQuestions.QuestionCounter < question.maxAnswer && AnsweringQuestions.QuestionCounter < question.Questions.Length && AnsweringQuestions.QuestionCounter < question.Answers.Length) {
-				//collider.GetComponentInChildren<PanelText> ().PrintText ();
-				question.PauseForAnswer ();
-				Debug.Log ("Inside");
+			if (AnsweringQuestions.questionList.Contains (question.QuestionText.text) == false) {
+				if (Input.GetKey (KeyCode.Space) && AnsweringQuestions.QuestionCounter < question.maxAnswer && AnsweringQuestions.QuestionCounter < question.Questions.Length && AnsweringQuestions.QuestionCounter < question.Answers.Length) {
+					//collider.GetComponentInChildren<PanelText> ().PrintText ();
+					question.PauseForAnswer ();
+					Debug.Log ("Inside");
+				}
 			}
 		}
 	}

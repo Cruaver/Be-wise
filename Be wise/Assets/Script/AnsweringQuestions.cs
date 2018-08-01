@@ -9,11 +9,12 @@ public class AnsweringQuestions : MonoBehaviour {
 
 	public string[] Questions = new string[]{"Be", "Have", "Other", "New", "Add"};
 	public string[] Answers = new string[]{"Etre", "Avoir", "Autre", "Nouveau", "Ajouter"};
+	static public List<string> questionList = new List<string>();
 
 
 	public int maxAnswer = 0;
+	public int maxFalse = 3;
 	public bool NotFind = true;
-
 	public GameObject AnswerPanel;
 	public Text QuestionText, ErrorsText;
 
@@ -25,6 +26,7 @@ public class AnsweringQuestions : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		QuestionText.text = Questions [QuestionCounter];
 		AnswerPanel.SetActive (false);
 		Debug.Log ("question number : " + QuestionCounter);
 		Debug.Log ("question bonne : " + GoodAnswerCounter);
@@ -34,8 +36,8 @@ public class AnsweringQuestions : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (AnswerPanel.activeSelf == true) {
-			if (maxAnswer > 0 && falseAnswer < maxAnswer && NotFind && QuestionCounter < Questions.Length && QuestionCounter < Answers.Length) {
-				if (inputed.isFocused && inputed.text != "" && Input.GetKey (KeyCode.Return)) {
+			if (maxAnswer > 0 && falseAnswer < maxFalse && NotFind && QuestionCounter < Questions.Length && QuestionCounter < Answers.Length) {
+				if (inputed.text != "" && Input.GetKey (KeyCode.Return)) {
 					IsGoodAnswer();
 				}
 			} else {
@@ -52,20 +54,22 @@ public class AnsweringQuestions : MonoBehaviour {
 		PrintErrors ();
 		Time.timeScale = 0;
 		NotFind = true;
-		QuestionText.text = Questions [QuestionCounter];
 	}
 
 	public void UnPause() {
+		questionList.Add(Questions[QuestionCounter]);
 		falseAnswer = 0;
+		QuestionCounter++;
 		AnswerPanel.SetActive (false);
 		Time.timeScale = 1;
+		SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 	}
 
 	private void PrintErrors() {
 		string error = "";
-		if (maxAnswer > 0 && falseAnswer < maxAnswer) {
+		if (maxAnswer > 0 && falseAnswer < maxFalse) {
 			int i = 0;
-			while (i < maxAnswer) {
+			while (i < maxFalse) {
 				while (i < falseAnswer) {
 					error += "X ";
 					i++;
@@ -80,15 +84,9 @@ public class AnsweringQuestions : MonoBehaviour {
 	private void IsGoodAnswer() {
 		if (inputed.text == Answers[QuestionCounter]) {
 			GoodAnswerCounter++;
-			QuestionCounter++;
 			NotFind = false;
-			Time.timeScale = 1 ;
-			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		} else {
 			falseAnswer++;
-			if (maxAnswer > 0 && falseAnswer >= maxAnswer) {
-				QuestionCounter++;
-			}
 		}
 		PrintErrors ();
 		inputed.text = "";
