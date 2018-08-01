@@ -26,7 +26,6 @@ public class AnsweringQuestions : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		QuestionText.text = Questions [QuestionCounter];
 		AnswerPanel.SetActive (false);
 		Debug.Log ("question number : " + QuestionCounter);
 		Debug.Log ("question bonne : " + GoodAnswerCounter);
@@ -51,6 +50,7 @@ public class AnsweringQuestions : MonoBehaviour {
 
 	public void PauseForAnswer() {
 		AnswerPanel.SetActive (true);
+		QuestionText.text = Questions [QuestionCounter];
 		PrintErrors ();
 		Time.timeScale = 0;
 		NotFind = true;
@@ -62,7 +62,7 @@ public class AnsweringQuestions : MonoBehaviour {
 		QuestionCounter++;
 		AnswerPanel.SetActive (false);
 		Time.timeScale = 1;
-		SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+		//SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 	}
 
 	private void PrintErrors() {
