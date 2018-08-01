@@ -11,7 +11,8 @@ public class AnsweringQuestions : MonoBehaviour {
 	public string[] Answers = new string[]{"Etre", "Avoir", "Autre", "Nouveau", "Ajouter"};
 	static public List<string> questionList = new List<string>();
 
-
+	public int AnswerOnMap = 3;
+	public int actAnswerOnMap = 0;
 	public int maxAnswer = 0;
 	public int maxFalse = 3;
 	public bool NotFind = true;
@@ -43,6 +44,9 @@ public class AnsweringQuestions : MonoBehaviour {
 				UnPause ();
 			}
 		}
+		if (actAnswerOnMap >= AnswerOnMap) {
+			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+		}
 	}
 
 	void FixedUpdate() {
@@ -60,9 +64,9 @@ public class AnsweringQuestions : MonoBehaviour {
 		questionList.Add(Questions[QuestionCounter]);
 		falseAnswer = 0;
 		QuestionCounter++;
+		actAnswerOnMap++;
 		AnswerPanel.SetActive (false);
 		Time.timeScale = 1;
-		//SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 	}
 
 	private void PrintErrors() {

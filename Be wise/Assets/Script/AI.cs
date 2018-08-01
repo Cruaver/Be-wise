@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AI : MonoBehaviour {
+
+	public bool speaked = false;
 
 
     private RaycastHit Hit;
@@ -19,5 +22,10 @@ public class AI : MonoBehaviour {
         {
             transform.Rotate(Vector3.up * Random.Range(90, 180));
         }
+
+		if (speaked && transform.Find ("Bubble").gameObject.activeSelf) {
+			transform.Find ("Bubble").gameObject.SetActive (false);
+		}
+
 	}
 }
