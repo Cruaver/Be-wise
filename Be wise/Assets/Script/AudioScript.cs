@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AudioScript : MonoBehaviour {
 
@@ -16,4 +17,10 @@ public class AudioScript : MonoBehaviour {
                 DontDestroyOnLoad(gameObject);
             }
         }
+
+	void Update() {
+		if (SceneManager.GetActiveScene ().name == "HomePage") {
+			Destroy (gameObject);
+		}
+	}
 }
