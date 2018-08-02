@@ -19,8 +19,14 @@ public class AnsweringQuestions : MonoBehaviour {
 		"jouons a un jeux je demande tu devine :D"
 	};
 
-	public string[] Questions = new string[]{"Be", "Have", "Other", "New", "Add"};
-	public string[] Answers = new string[]{"Etre", "Avoir", "Autre", "Nouveau", "Ajouter"};
+	public string json = "{\"words\":[{\"word\":\"Be\",\"correction\":\"Etre\"},{\"word\":\"Have\",\"correction\":\"Avoir\"},{\"word\":\"Other\",\"correction\":\"Autre\"},{\"word\":\"New\",\"correction\":\"Nouveau\"},{\"word\":\"Add\",\"correction\":\"Ajouter\"}],\"limit\":\"2\"}";
+
+	//public string[] Questions = new string[]{"Be", "Have", "Other", "New", "Add"};
+	//public string[] Answers = new string[]{"Etre", "Avoir", "Autre", "Nouveau", "Ajouter"};
+	private QuestionObject[] words;
+
+	public string[] Questions;
+	public string[] Answers;
 	static public List<string> questionList = new List<string>();
 
 	public int AnswerOnMap = 3;
@@ -40,14 +46,37 @@ public class AnsweringQuestions : MonoBehaviour {
 
 	[DllImport("__Internal")]
 	private static extern void SendScore(int score);
+	private static extern string GetConfig();
+
+
+	void Awake() {
+		
+		//string json = GetConfig();
+
+		Debug.Log(json);
+		words = JsonHelper.FromJson<QuestionObject>(json);
+		Debug.Log(words);
+		int indexer = 0;
+		foreach (var word in words){
+			Debug.Log(word.word);
+			Debug.Log(word.correction);
+			Questions[indexer] = word.word;
+			Answers[indexer] = word.correction;
+			indexer = indexer + 1;
+		}
+		// Get the limit send by the json and save it in GameManager
+		maxAnswer = int.Parse(JsonUtility.FromJson<Limit>(json).limit);
+	}
 
 	// Use this for initialization
 	void Start () {
 		AnswerPanel.SetActive (false);
 		Music.SetActive (true);
-		Debug.Log ("question number : " + QuestionCounter);
-		Debug.Log ("question bonne : " + GoodAnswerCounter);
-		Debug.Log ("question fausse : " + falseAnswer);
+		Debug.Log ("Question number : " + QuestionCounter);
+		Debug.Log ("Question bonne : " + GoodAnswerCounter);
+		Debug.Log ("Question fausse : " + falseAnswer);
+		Debug.Log ("Question 1 : " + Questions[0]);
+		Debug.Log ("Answer 1 : " + Answers[0]);
 	}
 
 	// Update is called once per frame
@@ -114,5 +143,35 @@ public class AnsweringQuestions : MonoBehaviour {
 		}
 		PrintErrors ();
 		inputed.text = "";
+	}
+}
+
+// This class is used to serialize a json array, which is not possible with the native JsonUtility class.
+public static class JsonHelper
+{
+	public static T[] FromJson<T>(string json)
+	{
+		Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(json);
+		return wrapper.words;
+	}
+
+	public static string ToJson<T>(T[] array)
+	{
+		Wrapper<T> wrapper = new Wrapper<T>();
+		wrapper.words = array;
+		return JsonUtility.ToJson(wrapper);
+	}
+
+	public static string ToJson<T>(T[] array, bool prettyPrint)
+	{
+		Wrapper<T> wrapper = new Wrapper<T>();
+		wrapper.words = array;
+		return JsonUtility.ToJson(wrapper, prettyPrint);
+	}
+
+	[System.Serializable]
+	private class Wrapper<T>
+	{
+		public T[] words;
 	}
 }
