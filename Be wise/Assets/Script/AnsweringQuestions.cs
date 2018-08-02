@@ -19,10 +19,9 @@ public class AnsweringQuestions : MonoBehaviour {
 		"jouons a un jeux je demande tu devine :D"
 	};
 
-	public string json = "{\"words\":[{\"word\":\"Be\",\"correction\":\"Etre\"},{\"word\":\"Have\",\"correction\":\"Avoir\"},{\"word\":\"Other\",\"correction\":\"Autre\"},{\"word\":\"New\",\"correction\":\"Nouveau\"},{\"word\":\"Add\",\"correction\":\"Ajouter\"}],\"limit\":\"2\"}";
 
-	//public string[] Questions = new string[]{"Be", "Have", "Other", "New", "Add"};
-	//public string[] Answers = new string[]{"Etre", "Avoir", "Autre", "Nouveau", "Ajouter"};
+	//Test unity uncoment this line
+	public string json = "{\"words\":[{\"word\":\"Be\",\"correction\":\"Etre\"},{\"word\":\"Have\",\"correction\":\"Avoir\"},{\"word\":\"Other\",\"correction\":\"Autre\"},{\"word\":\"New\",\"correction\":\"Nouveau\"},{\"word\":\"Add\",\"correction\":\"Ajouter\"}],\"limit\":\"5\"}";
 	private QuestionObject[] words;
 
 	public string[] Questions;
@@ -50,7 +49,8 @@ public class AnsweringQuestions : MonoBehaviour {
 
 
 	void Awake() {
-		
+
+		//Test unity comment this line
 		//string json = GetConfig();
 
 		Debug.Log(json);
@@ -135,7 +135,7 @@ public class AnsweringQuestions : MonoBehaviour {
 	}
 
 	private void IsGoodAnswer() {
-		if (inputed.text == Answers[QuestionCounter]) {
+		if (inputed.text.ToLower() == Answers[QuestionCounter].ToLower()) {
 			GoodAnswerCounter++;
 			NotFind = false;
 		} else {

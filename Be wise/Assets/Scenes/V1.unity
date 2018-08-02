@@ -1777,8 +1777,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Je panique, j'ai un devoir a faire et je ne sais pas ce que veux dire ce
-    mots !!! dit le moi je t'en suppli
+  m_Text: New Text
 --- !u!222 &309656612
 CanvasRenderer:
   m_ObjectHideFlags: 0
