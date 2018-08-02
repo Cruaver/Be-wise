@@ -26,7 +26,6 @@ public class AnsweringQuestions : MonoBehaviour {
 
 	public string[] Questions;
 	public string[] Answers;
-	static public List<string> questionList = new List<string>();
 
 	public int AnswerOnMap = 3;
 	public int actAnswerOnMap = 0;
@@ -110,7 +109,6 @@ public class AnsweringQuestions : MonoBehaviour {
 	}
 
 	public void UnPause() {
-		questionList.Add(Questions[QuestionCounter]);
 		falseAnswer = 0;
 		QuestionCounter++;
 		actAnswerOnMap++;
