@@ -7,6 +7,18 @@ using System.Runtime.InteropServices;
 
 public class AnsweringQuestions : MonoBehaviour {
 
+	private int QuestionTextIndex;
+
+	public string[] QuestionsText = new string[]{
+		"Bonjour, j'ai oublier ce petit mots pourais tu me donner ca signification ?",
+		"Hello, je ne me souvien plus de ce truc aide moi, dit moi ce qu'il veux dire",
+		"Bonsoir ou Bonjour petit renard, j'ai une devinette a te donner devine ce mots et je te laisserais partir.",
+		"Aide moi AHHHHHH !! j'ai oublier ce mots !!!",
+		"Je panique, j'ai un devoir a faire et je ne sais pas ce que veux dire ce mots !!! dit le moi je t'en suppli",
+		"Bien le bonjour a toi saurais tu ce que veux dire :",
+		"jouons a un jeux je demande tu devine :D"
+	};
+
 	public string[] Questions = new string[]{"Be", "Have", "Other", "New", "Add"};
 	public string[] Answers = new string[]{"Etre", "Avoir", "Autre", "Nouveau", "Ajouter"};
 	static public List<string> questionList = new List<string>();
@@ -17,7 +29,8 @@ public class AnsweringQuestions : MonoBehaviour {
 	public int maxFalse = 3;
 	public bool NotFind = true;
 	public GameObject AnswerPanel;
-	public Text QuestionText, ErrorsText;
+	public Text QuestionText, ErrorsText, QuestionTextUser;
+	public GameObject Music;
 
 	static public int QuestionCounter = 0;
 	static public int GoodAnswerCounter = 0;
@@ -31,6 +44,7 @@ public class AnsweringQuestions : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		AnswerPanel.SetActive (false);
+		Music.SetActive (true);
 		Debug.Log ("question number : " + QuestionCounter);
 		Debug.Log ("question bonne : " + GoodAnswerCounter);
 		Debug.Log ("question fausse : " + falseAnswer);
@@ -59,6 +73,8 @@ public class AnsweringQuestions : MonoBehaviour {
 	public void PauseForAnswer() {
 		AnswerPanel.SetActive (true);
 		QuestionText.text = Questions [QuestionCounter];
+		QuestionTextIndex = Random.Range (0, QuestionsText.Length);
+		QuestionTextUser.text = QuestionsText [QuestionTextIndex];
 		PrintErrors ();
 		Time.timeScale = 0;
 		NotFind = true;
