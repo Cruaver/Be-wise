@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Runtime.InteropServices;
+
 
 
 public class AnsweringQuestions : MonoBehaviour {
@@ -16,6 +18,7 @@ public class AnsweringQuestions : MonoBehaviour {
 	public int maxAnswer = 0;
 	public int maxFalse = 3;
 	public bool NotFind = true;
+	public int score = 0;
 	public GameObject AnswerPanel;
 	public Text QuestionText, ErrorsText;
 
@@ -33,6 +36,9 @@ public class AnsweringQuestions : MonoBehaviour {
 		Debug.Log ("question fausse : " + falseAnswer);
 	}
 
+	[DllImport("__Internal")]
+	private static extern void SendScore(int score);
+
 	// Update is called once per frame
 	void Update () {
 		if (AnswerPanel.activeSelf == true) {
@@ -45,6 +51,7 @@ public class AnsweringQuestions : MonoBehaviour {
 			}
 		}
 		if (actAnswerOnMap >= AnswerOnMap) {
+			SendScore(score);
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 		}
 	}

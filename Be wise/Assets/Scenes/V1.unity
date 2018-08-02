@@ -5090,6 +5090,7 @@ MonoBehaviour:
   maxAnswer: 4
   maxFalse: 3
   NotFind: 1
+  score: 50
   AnswerPanel: {fileID: 539976614}
   QuestionText: {fileID: 617048091}
   ErrorsText: {fileID: 733944621}
