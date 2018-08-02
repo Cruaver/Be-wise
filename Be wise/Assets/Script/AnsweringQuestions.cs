@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using System.Runtime.InteropServices;
 
 public class AnsweringQuestions : MonoBehaviour {
 
@@ -24,6 +24,9 @@ public class AnsweringQuestions : MonoBehaviour {
 	static public int falseAnswer = 0;
 
 	public InputField inputed;
+
+	[DllImport("__Internal")]
+	private static extern void SendScore(int score);
 
 	// Use this for initialization
 	void Start () {
@@ -46,6 +49,7 @@ public class AnsweringQuestions : MonoBehaviour {
 		}
 		if (actAnswerOnMap >= AnswerOnMap) {
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+			SendScore(0);
 		}
 	}
 

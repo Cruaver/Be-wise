@@ -12,10 +12,8 @@ public class HomePage : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
-
-	public void StartGame() {
-		SceneManager.LoadScene ("V1");
+		if (Input.GetKey (KeyCode.Space)) {
+			SceneManager.LoadScene ("V1");
+		}
 	}
 }
