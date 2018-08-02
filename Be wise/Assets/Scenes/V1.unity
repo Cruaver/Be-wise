@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5542,15 +5542,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   QuestionsText:
-  - Bonjour, j'ai oublier ce petit mots pourais tu me donner ca signification ?
-  - Hello, je ne me souvien plus de ce truc aide moi, dit moi ce qu'il veux dire
-  - Bonsoir ou Bonjour petit renard, j'ai une devinette a te donner devine ce mots
-    et je te laisserais partir.
-  - Aide moi AHHHHHH !! j'ai oublier ce mots !!!
-  - Je panique, j'ai un devoir a faire et je ne sais pas ce que veux dire ce mots
-    !!! dit le moi je t'en suppli
-  - 'Bien le bonjour a toi saurais tu ce que veux dire :'
-  - jouons a un jeux je demande tu devine :D
+  - "Bonjour, j'ai oubli\xE9 ce petit mot pourrais-tu me donner sa signification ?"
+  - Hello, je ne me souviens plus de ce truc. Aide-moi, dis moi ce qu'il veut dire
+  - "Bonsoir ou bonjour petit renard, j'ai une devinette \xE0 te donner. Devine ce
+    mot et je te laisserai partir."
+  - "Aide moi ! AHHHHHH !! J'ai oubli\xE9 ce mot !!!"
+  - "Je panique, j'ai un devoir \xE0 faire et je ne sais pas ce que veut dire ce mot
+    !!! Dis-le moi je t'en supplie"
+  - "Bien le bonjour \xE0 toi saurais-tu ce que veut dire :"
+  - "Jouons \xE0 un jeu ! Je te demande quelque chose, tu devines :D"
   json: '{"words":[{"word":"Be","correction":"Etre"},{"word":"Have","correction":"Avoir"},{"word":"Other","correction":"Autre"},{"word":"New","correction":"Nouveau"},{"word":"Add","correction":"Ajouter"}],"limit":"5"}'
   Questions:
   - Be
@@ -6021,8 +6021,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1453383792}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.173, y: -0.138, z: 0.475}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.173, y: -0.138, z: 0.055}
+  m_LocalScale: {x: 1, y: 1, z: 1.5644}
   m_Children: []
   m_Father: {fileID: 29216936}
   m_RootOrder: 6

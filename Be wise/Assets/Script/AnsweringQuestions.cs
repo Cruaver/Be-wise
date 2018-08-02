@@ -11,9 +11,9 @@ public class AnsweringQuestions : MonoBehaviour {
 
 	public string[] QuestionsText = new string[]{
 		"Bonjour, j'ai oublié ce petit mot pourrais-tu me donner sa signification ?",
-		"Hello, je ne me souviens plus de ce truc. Aide moi, dit moi ce qu'il veut dire",
+		"Hello, je ne me souviens plus de ce truc. Aide-moi, dis moi ce qu'il veut dire",
 		"Bonsoir ou bonjour petit renard, j'ai une devinette à te donner. Devine ce mot et je te laisserai partir.",
-		"Aide moi ! AHHHHHH !! J'ai oublier ce mot !!!",
+		"Aide moi ! AHHHHHH !! J'ai oublié ce mot !!!",
 		"Je panique, j'ai un devoir à faire et je ne sais pas ce que veut dire ce mot !!! Dis-le moi je t'en supplie",
 		"Bien le bonjour à toi saurais-tu ce que veut dire :",
 		"Jouons à un jeu ! Je te demande quelque chose, tu devines :D"
@@ -90,9 +90,10 @@ public class AnsweringQuestions : MonoBehaviour {
 		}
 		if (QuestionCounter >= maxAnswer) {
 			StaticClass.Score = GoodAnswerCounter / maxAnswer;
-			#if UNITY_WEBGL
+            #if UNITY_WEBGL
 				SendScore (StaticClass.Score);
-			#endif
+            #endif
+            QuestionCounter = 0;
 			SceneManager.LoadScene ("Recap");
 		}
 	}

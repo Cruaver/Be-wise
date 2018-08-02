@@ -22,7 +22,7 @@ public class Recap : MonoBehaviour {
 		while (StaticClass.Questions.Length > i && StaticClass.Answers.Length > i && StaticClass.Correct.Length > i) {
 			theContent += StaticClass.Questions [i] + " : ";
 			if (StaticClass.Correct [i])
-				theContent += "<color=#668FFF>" + StaticClass.Answers [i] + "</color>\n\n";
+				theContent += "<color=#1042cc>" + StaticClass.Answers [i] + "</color>\n\n";
 			else
 				theContent += "<color=#FF0000>" + StaticClass.Answers [i] + "</color>\n\n";
 			i++;
