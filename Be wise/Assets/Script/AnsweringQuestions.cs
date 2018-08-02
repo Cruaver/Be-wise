@@ -10,13 +10,13 @@ public class AnsweringQuestions : MonoBehaviour {
 	private int QuestionTextIndex;
 
 	public string[] QuestionsText = new string[]{
-		"Bonjour, j'ai oublier ce petit mots pourais tu me donner ca signification ?",
-		"Hello, je ne me souvien plus de ce truc aide moi, dit moi ce qu'il veux dire",
-		"Bonsoir ou Bonjour petit renard, j'ai une devinette a te donner devine ce mots et je te laisserais partir.",
-		"Aide moi AHHHHHH !! j'ai oublier ce mots !!!",
-		"Je panique, j'ai un devoir a faire et je ne sais pas ce que veux dire ce mots !!! dit le moi je t'en suppli",
-		"Bien le bonjour a toi saurais tu ce que veux dire :",
-		"jouons a un jeux je demande tu devine :D"
+		"Bonjour, j'ai oublié ce petit mot pourrais-tu me donner sa signification ?",
+		"Hello, je ne me souviens plus de ce truc. Aide moi, dit moi ce qu'il veut dire",
+		"Bonsoir ou bonjour petit renard, j'ai une devinette à te donner. Devine ce mot et je te laisserai partir.",
+		"Aide moi ! AHHHHHH !! J'ai oublier ce mot !!!",
+		"Je panique, j'ai un devoir à faire et je ne sais pas ce que veut dire ce mot !!! Dis-le moi je t'en supplie",
+		"Bien le bonjour à toi saurais-tu ce que veut dire :",
+		"Jouons à un jeu ! Je te demande quelque chose, tu devines :D"
 	};
 
 
@@ -29,7 +29,7 @@ public class AnsweringQuestions : MonoBehaviour {
 
 	public int AnswerOnMap = 3;
 	public int actAnswerOnMap = 0;
-	public int maxAnswer = 0;
+	public int maxAnswer;
 	public int maxFalse = 3;
 	public bool NotFind = true;
 	public GameObject AnswerPanel;
@@ -52,13 +52,9 @@ public class AnsweringQuestions : MonoBehaviour {
 		//Test unity comment this line
 		//string json = GetConfig();
 
-		Debug.Log(json);
 		words = JsonHelper.FromJson<QuestionObject>(json);
-		Debug.Log(words);
 		int indexer = 0;
 		foreach (var word in words){
-			Debug.Log(word.word);
-			Debug.Log(word.correction);
 			Questions[indexer] = word.word;
 			Answers[indexer] = word.correction;
 			indexer = indexer + 1;
@@ -71,11 +67,11 @@ public class AnsweringQuestions : MonoBehaviour {
 	void Start () {
 		AnswerPanel.SetActive (false);
 		Music.SetActive (true);
-		Debug.Log ("Question number : " + QuestionCounter);
-		Debug.Log ("Question bonne : " + GoodAnswerCounter);
-		Debug.Log ("Question fausse : " + falseAnswer);
-		Debug.Log ("Question 1 : " + Questions[0]);
-		Debug.Log ("Answer 1 : " + Answers[0]);
+		if (StaticClass.Correct == null) {
+			StaticClass.Correct = new bool[maxAnswer];
+		}
+		StaticClass.Questions = Questions;
+		StaticClass.Answers = Answers;
 	}
 
 	// Update is called once per frame
@@ -91,11 +87,14 @@ public class AnsweringQuestions : MonoBehaviour {
 		}
 		if (actAnswerOnMap >= AnswerOnMap) {
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
-			SendScore(0);
 		}
-	}
-
-	void FixedUpdate() {
+		if (QuestionCounter >= maxAnswer) {
+			StaticClass.Score = GoodAnswerCounter / maxAnswer;
+			#if UNITY_WEBGL
+				SendScore (StaticClass.Score);
+			#endif
+			SceneManager.LoadScene ("Recap");
+		}
 	}
 
 	public void PauseForAnswer() {
@@ -109,6 +108,7 @@ public class AnsweringQuestions : MonoBehaviour {
 	}
 
 	public void UnPause() {
+		StaticClass.Correct [QuestionCounter] = (falseAnswer >= maxFalse) ? false : true;
 		falseAnswer = 0;
 		QuestionCounter++;
 		actAnswerOnMap++;
