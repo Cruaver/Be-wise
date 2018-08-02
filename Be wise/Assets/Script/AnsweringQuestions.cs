@@ -25,7 +25,7 @@ public class AnsweringQuestions : MonoBehaviour {
 
 
 	// Test unity uncoment this line
-	public string json = "{\"words\":[{\"word\":\"Be\",\"correction\":\"Etre\"},{\"word\":\"Have\",\"correction\":\"Avoir\"},{\"word\":\"Other\",\"correction\":\"Autre\"},{\"word\":\"New\",\"correction\":\"Nouveau\"},{\"word\":\"Add\",\"correction\":\"Ajouter\"}],\"limit\":\"5\"}";
+	//public string json = "{\"words\":[{\"word\":\"Be\",\"correction\":\"Etre\"},{\"word\":\"Have\",\"correction\":\"Avoir\"},{\"word\":\"Other\",\"correction\":\"Autre\"},{\"word\":\"New\",\"correction\":\"Nouveau\"},{\"word\":\"Add\",\"correction\":\"Ajouter\"}],\"limit\":\"5\"}";
 	private QuestionObject[] words;
 
 	public string[] Questions;
@@ -48,6 +48,8 @@ public class AnsweringQuestions : MonoBehaviour {
 
 	[DllImport("__Internal")]
 	private static extern void SendScore(int score);
+
+	[DllImport("__Internal")]
 	private static extern string GetConfig();
 
 
@@ -55,8 +57,8 @@ public class AnsweringQuestions : MonoBehaviour {
 	void Awake() {
 
 		//Test unity comment this line
-		//string json = GetConfig();
-
+		string json = GetConfig();
+		Debug.Log (json);
 		words = JsonHelper.FromJson<QuestionObject>(json);
 		int indexer = 0;
 		foreach (var word in words){
@@ -104,6 +106,7 @@ public class AnsweringQuestions : MonoBehaviour {
             #if UNITY_WEBGL
 				SendScore (StaticClass.Score);
             #endif
+			Debug.Log (StaticClass.Score);
             QuestionCounter = 0;
 			SceneManager.LoadScene ("Recap");
 		}
