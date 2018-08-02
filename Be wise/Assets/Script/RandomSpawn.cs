@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/*
+ * This class is suposed to be added to the gameObjects when we want to
+ * use random gameObjects that are added to the GameObject array "Models"
+ * It is actually not used
+*/
+
 public class RandomSpawn : MonoBehaviour {
 
 	public string[] Questions = new string[5];

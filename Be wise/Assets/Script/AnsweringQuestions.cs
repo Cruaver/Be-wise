@@ -5,10 +5,14 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Runtime.InteropServices;
 
+/*
+ * This class is used on the game for the request of the NPCs, the verification of the user's inputs and all the proceedings of the game.
+*/
+
 public class AnsweringQuestions : MonoBehaviour {
 
+	// It is the values for a random request of the NPCs
 	private int QuestionTextIndex;
-
 	public string[] QuestionsText = new string[]{
 		"Bonjour, j'ai oublié ce petit mot pourrais-tu me donner sa signification ?",
 		"Hello, je ne me souviens plus de ce truc. Aide-moi, dis moi ce qu'il veut dire",
@@ -20,7 +24,7 @@ public class AnsweringQuestions : MonoBehaviour {
 	};
 
 
-	//Test unity uncoment this line
+	// Test unity uncoment this line
 	public string json = "{\"words\":[{\"word\":\"Be\",\"correction\":\"Etre\"},{\"word\":\"Have\",\"correction\":\"Avoir\"},{\"word\":\"Other\",\"correction\":\"Autre\"},{\"word\":\"New\",\"correction\":\"Nouveau\"},{\"word\":\"Add\",\"correction\":\"Ajouter\"}],\"limit\":\"5\"}";
 	private QuestionObject[] words;
 
@@ -47,6 +51,7 @@ public class AnsweringQuestions : MonoBehaviour {
 	private static extern string GetConfig();
 
 
+	// on awake, it will parse the values from a JSON that should be received from the teacher.
 	void Awake() {
 
 		//Test unity comment this line
@@ -85,11 +90,17 @@ public class AnsweringQuestions : MonoBehaviour {
 				UnPause ();
 			}
 		}
+
+		// this part reload the scene if there is not NPCs anymore with which the player could interact.
+
 		if (actAnswerOnMap >= AnswerOnMap) {
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 		}
+
+		// This part check if the player has answer to all the questions and send the score to the teacher.
+
 		if (QuestionCounter >= maxAnswer) {
-			StaticClass.Score = GoodAnswerCounter / maxAnswer;
+			StaticClass.Score = (int)(((float)GoodAnswerCounter / (float)maxAnswer) * 20);
             #if UNITY_WEBGL
 				SendScore (StaticClass.Score);
             #endif
@@ -97,6 +108,8 @@ public class AnsweringQuestions : MonoBehaviour {
 			SceneManager.LoadScene ("Recap");
 		}
 	}
+
+	// this part allow the player to answer to the question
 
 	public void PauseForAnswer() {
 		AnswerPanel.SetActive (true);
@@ -108,6 +121,8 @@ public class AnsweringQuestions : MonoBehaviour {
 		NotFind = true;
 	}
 
+	// this function enable the player and the NPCs to move if the answer has well answered to the question or if he don't have enough try. 
+
 	public void UnPause() {
 		StaticClass.Correct [QuestionCounter] = (falseAnswer >= maxFalse) ? false : true;
 		falseAnswer = 0;
@@ -116,6 +131,8 @@ public class AnsweringQuestions : MonoBehaviour {
 		AnswerPanel.SetActive (false);
 		Time.timeScale = 1;
 	}
+
+	// this function print the errors that was made by the player.
 
 	private void PrintErrors() {
 		string error = "";
@@ -132,6 +149,8 @@ public class AnsweringQuestions : MonoBehaviour {
 		}
 		ErrorsText.text = error;
 	}
+
+	// this function is use to check if the player has well answered the question.
 
 	private void IsGoodAnswer() {
 		if (inputed.text.ToLower() == Answers[QuestionCounter].ToLower()) {

@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * This class is used for the orientation of the Speech Bubble above the NPCs
+*/
+
 public class BulleScript : MonoBehaviour {
 
 	public Transform LookTarget;

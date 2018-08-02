@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+/*
+ * This class is used for a recap on the Scene "Recap"
+*/
+
 public class Recap : MonoBehaviour {
 	public Text theText;
 	public GameObject previous, next;
@@ -44,8 +48,11 @@ public class Recap : MonoBehaviour {
 	}
 
 	public void BackHome() {
+		AnsweringQuestions.GoodAnswerCounter = 0;
 		SceneManager.LoadScene ("HomePage");
 	}
+
+	// this function change the text if the player click on the previous or next buttons.
 
 	public void changeText(int direction) {
 		if (direction >= 0)
@@ -55,6 +62,8 @@ public class Recap : MonoBehaviour {
 		theText.text = text [theLine];
 		buttonAvailable ();
 	}
+
+	// this function allow the activity of the different buttons to see the parts of the recap.
 
 	public void buttonAvailable() {
 		if (theLine > 0)

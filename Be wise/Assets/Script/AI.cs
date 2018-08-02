@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/*
+ * This class is used for the movement of NPCs and verify if the player have already interacted with them
+*/
+
 public class AI : MonoBehaviour {
 
 	public bool speaked = false;
@@ -22,6 +26,8 @@ public class AI : MonoBehaviour {
         {
             transform.Rotate(Vector3.up * Random.Range(90, 180));
         }
+
+		// this part disappear the Speech Bubble from the NPCs.
 
 		if (speaked && transform.Find ("Bubble").gameObject.activeSelf) {
 			transform.Find ("Bubble").gameObject.SetActive (false);

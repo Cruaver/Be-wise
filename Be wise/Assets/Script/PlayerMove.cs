@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * This class is used to move the Player
+*/
+
 public class PlayerMove : MonoBehaviour
 {
 

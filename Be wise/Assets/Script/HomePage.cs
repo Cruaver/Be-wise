@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/*
+ * This class is used on the Scene "HomePage". It is used to change the Scene.
+*/
+
 public class HomePage : MonoBehaviour {
 
 	// Use this for initialization
