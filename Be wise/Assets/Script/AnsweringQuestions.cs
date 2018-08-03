@@ -25,7 +25,7 @@ public class AnsweringQuestions : MonoBehaviour {
 
 
 	// Test unity uncoment this line
-	//public string json = "{\"words\":[{\"word\":\"Be\",\"correction\":\"Etre\"},{\"word\":\"Have\",\"correction\":\"Avoir\"},{\"word\":\"Other\",\"correction\":\"Autre\"},{\"word\":\"New\",\"correction\":\"Nouveau\"},{\"word\":\"Add\",\"correction\":\"Ajouter\"}],\"limit\":\"5\"}";
+	public string json = "{\"words\":[{\"word\":\"Be\",\"correction\":\"Etre\"},{\"word\":\"Have\",\"correction\":\"Avoir\"},{\"word\":\"Other\",\"correction\":\"Autre\"},{\"word\":\"New\",\"correction\":\"Nouveau\"},{\"word\":\"Add\",\"correction\":\"Ajouter\"}],\"limit\":\"5\"}";
 	private QuestionObject[] words;
 
 	public string[] Questions;
@@ -57,7 +57,9 @@ public class AnsweringQuestions : MonoBehaviour {
 	void Awake() {
 
 		//Test unity comment this line
-		string json = GetConfig();
+		#if UNITY_WEBGL
+			string json = GetConfig();
+		#endif
 		Debug.Log (json);
 		words = JsonHelper.FromJson<QuestionObject>(json);
 		int indexer = 0;
